@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %} Add new product {% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header">
+       <h5> Create a product </h5>
+    </div>
+    
+    <div class="card-body">
+        
+        <form enctype="multipart/form-data" method="post">
+
+<!--this is a security token that Django uses to prevent cross-site request forgery attacks -->
+
+            {% csrf_token %}
+           
+            <div class="form_column">
+
+                <div class="col-md-5 col-sm-12">
+
+                    <label for="" class="form-label">Name:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="name" 
+                        id="" 
+                        minlength="3"
+                        maxlength="50"
+                        required
+                        autofocus
+                        aria-describedby="helpId" 
+                        placeholder="">
+
+                    <label for="" class="form-label">Description:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="description" 
+                        id=""
+                        required
+                        aria-describedby="helpId"
+                        placeholder="">
+
+                    <label for="" class="form-label">Category:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="category" 
+                        id=""
+                        required
+                        aria-describedby="helpId"
+                        placeholder="Ex: Game, playstation 4, Mario kart">
+
+                    <label for="" class="form-label">Upload date:</label>
+                    <input 
+                        type="date"
+                        class="datepicker form-control" 
+                        name="upload_date" 
+                        id=""
+                        required
+                        aria-describedby="helpId"
+                        placeholder="">    
+
+                </div>  
+                
+                <div class="col-md-5 col-sm-12">
+
+                    <label for="" class="form-label">Location:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="location" 
+                        id=""
+                        required
+                        aria-describedby="helpId"
+                        placeholder="">
+
+                    <label for="" class="form-label">Purchase cost:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="purchase_cost" 
+                        id="" 
+                        required
+                        aria-describedby="helpId" 
+                        placeholder="$0.00"> 
+                            
+                    <label for="" class="form-label">Cost of sale:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="sale_cost" 
+                        required
+                        id="" 
+                        aria-describedby="helpId"
+                        placeholder="$0.00">
+                    <!-- This amount is in percentage -->
+                    <label for="" class="form-label">Intermediary cost:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="intermediary_cost" 
+                        id="" 
+                        required
+                        aria-describedby="helpId" 
+                        placeholder="0%">
+
+                </div>  
+            </div>
+            
+                <div class="mb-0">
+                    <label for="" class="form-label">Image:</label>
+                    <input 
+                        type="file"
+                        class="form-control" 
+                        name="imagen" 
+                        id="" 
+                        required
+                        aria-describedby="helpId" 
+                        placeholder="">
+                </div> 
+        
+                
+            <br>
+            <input name="submit" id="submit" class="btn btn-success" type="submit" value="Send">
+            <a href="{% url 'products' %}" class="btn btn-danger">Cancel</a>
+            
+        </form>
+    </div>
+</div>
+    
+{% endblock %}

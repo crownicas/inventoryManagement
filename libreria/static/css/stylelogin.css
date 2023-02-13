@@ -1,0 +1,196 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Raleway', sans-serif;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background : #bf94cc;
+}
+
+section .square{
+    position: absolute;
+    filter: blur(100px);
+}
+
+section .square:nth-child(1){
+    top: -370px;
+    width: 500px;
+    height: 500px;
+    background: #dcafff;
+}
+
+section .square:nth-child(2){
+    bottom: 0px;
+    left: 110px;
+    width: 550px;
+    height: 500px;
+    background: #dbb6ee;
+}
+
+section .square:nth-child(3){
+    bottom: 80px;
+    right: 120px;
+    width: 450px;
+    height: 4500px;
+    background: #eabbf0;
+}
+
+.square{
+    position: absolute;
+    animation: animation 5s linear infinite;
+    animation-delay: calc(1s * var(--i));
+}
+
+@keyframes animation{
+    0% , 100%{
+        transform: translateX(-50px);
+    }
+    50%{
+        transform: translateX(50px);
+    }
+}
+
+.loginBox{
+    position: relative;
+}
+
+.loginContainer{
+    position: relative;
+    width: 400px;
+    min-height: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.loginForm{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+}
+
+h1{
+    font-size: 30px;
+    font-weight: 600;
+    color: #685667;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.loginForm .inputBox{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.loginForm td {
+    vertical-align: middle;
+    border-bottom: 0px;
+}
+
+label{
+    color: #685667;
+    font-weight: 600;
+}
+
+input{
+    width: 100%;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid #b79db5;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 0 5px;
+    color: black;
+}
+
+input[type="submit"]{
+    background: #3c3840;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px; 
+}
+
+.btn:hover{
+    background-color: #856383 !important;
+}
+
+.btn-primary{
+    --bs-btn-active-color: #fff4f4ab;
+    --bs-btn-active-bg: #5b5656b5;
+}
+
+P {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+/* This is for iphones view */
+
+@media screen and (max-width: 500px) {
+
+    .loginContainer{
+        position: relative;
+        width: 350px;
+    }
+    
+    .loginForm{
+        padding: 15px;
+    }
+    
+    h1{
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    input{
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    input[type="submit"]{
+        font-size: 16px;
+        padding: 0 5px;
+    }
+    
+    P {
+        font-size: 10px;
+    }
+
+    .square{
+        position: absolute;
+        animation: none;
+    }
+}

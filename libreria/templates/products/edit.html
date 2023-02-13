@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block title %} Edit a product {% endblock %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header">
+       <h5> Edit product information </h5>
+    </div>
+
+    <div class="card-body" >
+
+        <form enctype="multipart/form-data" method="post">
+
+<!--This is a security token that Django uses to prevent cross-site request forgery attacks -->          
+            {% csrf_token %} 
+
+            <div class="form_column">
+                
+                <div class="col-md-5 col-sm-12">
+
+                    <label for="" class="form-label">Name:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="name" 
+                        required
+                        id="" 
+                        aria-describedby="helpId" 
+                        placeholder=""
+                        value= "{{ form.name.value | default_if_none:'' }}">
+
+                    <label for="" class="form-label">Category:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="category" 
+                        id=""
+                        aria-describedby="helpId"
+                        value= "{{ form.category.value | default_if_none:'' }}"
+                        placeholder="Max 50 characters">
+                        
+                    <label for="" class="form-label">Location:</label>
+                    <input
+                        type="text" 
+                        class="form-control" 
+                        required
+                        name="location"
+                        value="{{ form.location.value | default_if_none:"" }}"
+                        id=""
+                        aria-describedby="helpId"
+                        placeholder="">    
+
+                    <label for="" class="form-label">Purchase cost:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="purchase_cost" 
+                        step="any"
+                        id="" 
+                        required
+                        aria-describedby="helpId" 
+                        value= "{{ form.purchase_cost.value | default_if_none:''  }}"
+                        placeholder="$0.00"> 
+
+                    <label for="" class="form-label">Cost of sale:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="sale_cost" 
+                        step="any"
+                        id="" 
+                        required
+                        aria-describedby="helpId"
+                        value= "{{ form.sale_cost.value | default_if_none:''  }}" 
+                        placeholder="$0.00">  
+                        
+                    <label for="" class="form-label">Intermediary cost:</label>
+                    <input 
+                        type="number"
+                        class="form-control" 
+                        name="intermediary_cost" 
+                        step="any"
+                        id="" 
+                        required
+                        aria-describedby="helpId" 
+                        value= "{{ form.intermediary_cost.value | default_if_none:'' }}"
+                        placeholder="$0.00">   
+                </div>
+            
+                <div class="col-md-5 col-sm-12">
+
+                    <div class="center-img-edit">
+                        {%for campo in form%}
+                            {% if campo.field.widget.input_type == 'file' and campo.value %}
+            
+                                <img class="img-edit" src="{{ MEDIA_URL}}/imagen/{{campo.value}}" alt="200" width="180px" height="230px">
+                                
+                                <div class="popup-img">
+                                    <span>&times;</span>
+                                    <img src="{{ MEDIA_URL}}/imagen/{{campo.value}}" alt="" width="80%" height="80%">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <label for="" class="form-label">Upload Imagen:</label>
+                    <input 
+                        type="file" 
+                        class="form-control" 
+                        name="imagen" 
+                        id="" 
+                        aria-describedby="helpId" 
+                        placeholder="">  
+
+                    <label for="" class="form-label">Description:</label>
+                    <input 
+                        type="text"
+                        class="form-control" 
+                        name="description" 
+                        id=""
+                        aria-describedby="helpId"
+                        value= "{{ form.description.value | default_if_none:'' }}"
+                        placeholder="">
+                    
+                    <label for="" class="form-label">Sale date:</label>
+                    <input 
+                        type="date"
+                        class="form-control" 
+                        name="sale_date" 
+                        id="" 
+                        aria-describedby="helpId" 
+                        value= "{{ form.sale_date.value | default_if_none:'' }}"
+                        placeholder="MM/DD/YYYY">
+                
+                    <label class="form-check-label" for="Yes">Sold:</label>
+                    <input class="form-check-input" 
+                        type="checkbox" 
+                        name = "sold" 
+                        id="flexCheckDefault"
+                        {% if form.sold.value == True %}
+                            checked
+                        {% endif %}
+                        <option value="True"></option>                
+                </div>
+            </div>    
+
+            <br>
+            <input  name="submit" id="submit" class="btn btn-success" type="submit" value="Send">
+            <a  href="{% url 'products' %}" class="btn btn-danger">Cancel</a>
+
+        </form>
+    </div>            
+</div>
+
+
+<script>
+    var popup = document.querySelector('.popup-img');
+    var img = document.querySelector('.img-edit');
+    var close = document.querySelector('.popup-img span');
+    var img_popup = document.querySelectorAll('.img-edit');
+
+    img.addEventListener('click', function(){
+        popup.style.display = 'block';
+    });
+
+    close.addEventListener('click', function(){
+        popup.style.display = 'none';
+    });
+
+</script>
+
+{% endblock %}

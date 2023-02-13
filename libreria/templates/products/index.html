@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %} list of products {% endblock %}
+
+{% block body %}
+
+<main class="card">
+
+    <div class="card-header">
+        <a name=" " id=" " class="btn btn-dark" href="{% url 'create' %}" role="button">Add New Products</a>
+        <div class="btn-group">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Filters
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'products_sold' %}">Products sold</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_unsold' %}">Products not sold</a></li>
+              <li><a class="dropdown-item" href="{% url 'products_date' %}">Products older</a></li>
+            </ul>
+        </div>
+        <a class="btn-refresh" href="{% url 'products' %}"><i id="refresh_icon" class="fa-solid fa-arrows-rotate fa-lg"></i></a>
+    </div>   
+
+
+    <div class= "container">
+        <div class = "row 12">  
+            <div class = "col-md-6-search"> 
+                <form method="get" action = "{% url 'search' %}">
+                    <div id="custom-search-input" >
+                        <div class="input-group col-md-12">
+                            <input type="search" class="form-control" placeholder="Search..." name="search" value ="{{ request.GET.search }}">
+                            <span class="input-group-list">
+                                <i class="icon icon-search"></i>
+                                <button type="submit" class="btn btn-dark">Search</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+            
+    <div class="card-body">
+        {{ entity.paginator.count }} products
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="size-movile">ID</th>
+                    <th class="size-movile">Name</th>
+                    <th class="movile-th">Category</th>
+                    <th class="location-th">Location</th>
+                    <th class="movile-th">Purchase cost</th>
+                    <th class="movile-th">Cost of sale</th>
+                    <th class="movile-th">Upload date</th>
+                    <th class="movile-th">Sale date</th>
+                    <th class="movile-th">Sold</th>
+                    <th class="size-movile">Imagen</th>
+                    <th class="movile-th">Intermediary</th>
+                    <th class="movile-th">Profits</th>
+                    <th class="size-movile">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+               {% for product in entity %}
+
+<!--view movile is for iphones and movile-td is por PC -->
+                <tr>
+                    <td class="vmovile-td">{{ product.id }}</td>
+                    <td class="productsname-td">{{ product.name }}</td>
+                    <td class="movile-td">{{ product.category }}</td>
+                    <td class="vmovile-td">{{ product.location }}</td>
+                    <td class="movile-td">${{ product.purchase_cost }}</td>
+                    <td class="movile-td">${{ product.sale_cost }}</td>
+                    <td class="movile-td">{{ product.upload_date}}</td>
+                    <td class="movile-td">{{ product.sale_date }}</td>
+
+                    {% if product.sold == True %}
+                        <td class="movile-td"><img id="yes" src="/static/img/yes.png" height="20" width="20"></td>
+                    {% else %}
+                        <td class="movile-td"><img id="no" src="/static/img/no.png" height="20" width="20"></td>
+                    {% endif %}
+                    
+                    <td><img class="imagen-td" src="{{ product.imagen.url }}" alt="Product image" width="70px" height="80"></td>
+                    <td class="movile-td">{{ product.intermediary_cost }}%</td>
+                    <td class="movile-td">${{ product.profit }}</td>
+                    <td><a  id="button-edit" class="btn btn-secondary" href="{% url 'edit' product.id %}" role="button"> Edit </a> </td>    
+                </tr>
+
+
+                <div class="popup-img">
+                    <span>&times;</span>
+                    <img src="{{ product.imagen.url }}" alt="" width="300px" height="300">
+                </div>
+                
+               {% endfor %}
+            </tbody>
+        </table>  
+    </div>
+</main>
+
+
+
+
+
+<script>
+    //This script is to make the image bigger when you click on it
+
+    var popupImg = document.querySelector('.popup-img');
+    var popupImgSpan = document.querySelector('.popup-img span');
+    var popupImgImg = document.querySelector('.popup-img img');
+    var imagenTd = document.querySelectorAll('.imagen-td');
+
+    imagenTd.forEach(element => {
+        element.addEventListener('click', function(){
+            popupImg.style.display = 'flex';
+            popupImgImg.src = this.src;
+        })
+    });
+
+    popupImgSpan.addEventListener('click', function(){
+        popupImg.style.display = 'none';
+    })
+
+//This script is returned to the products page when you click on the refresh icon
+
+    document.body.onload = function() {
+        let url = window.location.href;
+        let page = url.substring(url.lastIndexOf('/') + 1);
+    
+        if (page !== 'products') {
+            let icon = document.getElementById('refresh_icon');
+            icon.classList.add('fa-fade');
+        }
+    }
+</script>
+
+
+{% endblock %}
+
+<!--<a class="btn btn-danger" href="{% url 'delete' product.id %}" role="button">Delete</a>-->

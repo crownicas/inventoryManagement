@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+    
+
+    <div class="container">
+        <!--<img id="logo" class="logo" src="/static/img/lologo.png" height="250" width="500">-->
+        <br>
+        <h5 style="color: white;"> Start entering products</h5>
+        
+
+        <p class="lead">
+            <a class="btn btn-success" href="{% url 'create' %}" role="button">Start now</a>
+        </p>
+    </div>
+
+
+
+{% endblock %}
+
+
